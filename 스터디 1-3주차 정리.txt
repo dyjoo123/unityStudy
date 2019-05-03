@@ -1,0 +1,120 @@
+* 게임의 역사
+게임은 개발자라는 개념이 없을 때 컴퓨터를 이용하여 재밌는 작업을 만들기 위한 사람들에 의해 만들어짐.
+이후 최초의 게임이라 칭해지는 '틱택토'가 개발되었음.
+그러던 중 아타리 사에 의해 퐁이 개발되었고 이것이 상업적으로 발전되어 가정용 게임기가 제작되어 크게 성장.
+그러나 아타리 사에서 퇴사한 직원들에 의해 다른 게임들이 양산되고, 이는 게임의 질을 떨어뜨리기 시작.
+하지만 콘솔이 등장하고 게임의 질이 올라가며 지금의 상태에 옴.
+
+* 유니티
+유니티는 게임 개발 도구로서, 개발자가 편리하게 게임을 개발할 수 있도록 함.
+유니티에 가장 특화된 기능은 에셋 스토어로서, 개발의 능력은 있지만 그래픽 제작 능력이 없는 개발자들이 게임을 만들기 쉽게, 혹은 그 반대에 경우에도 편리하게 이용할 수 있게 함.
+
+* 유니티의 기본구성
+유니티는 오브젝트 탐색기, 에셋 탐색기, 오브젝트 속성창으로 나눌 수 있음
+- 오브젝트 탐색기 : 오브젝트를 제작하거나 그를 바탕으로 만든 오브젝트들을 저장할 수 있음
+- 에셋 탐색기 : 프리팹, 오디오, C# 스트립트, 메터리얼 등의 에셋등을 GUI를 통해 간편하게 접근 가능
+- 오브젝트 속성창 : 해당 오브젝트의 속성을 보고, 수정할 수 있음
+
+* 오브젝트 종류
+- cube, sphere, capsule, cylinder, quad, terrian등이 존재
+cf) 이 중 terrian은 대형 맵등을 제작하기에 용이한 오브젝트
+
+* 단축키
+- ctrl + D : 오브젝트 복사
+- 오브젝트 선택한 상태에서 ctrl + F : 그 오브젝트 중심으로 보기
+- 마우스로 우클릭 후 드래그 : 그 시선 축으로 회전
+- ctrl + 9 : 에셋 스토어
+
+* 중력과 충돌 설정
+- transform : 기본 설정, 위치, 각도, 크기
+- collider : 충돌 판정 설정. 눈에 보이지 않으며 굳이 오브젝트와 같은 크기일 필요 X
+- rigidbody : 물리 속성, 질량 및 물리 효과 설정 가능. 이곳에서 중력을 설정할 수 있음
+- mesh, mesh renderer, shader 등이 있음
+
+* rigidbody 자세히 보기
+- mass : 질량
+- drag : 낙하 저항
+- angular drag : 회전 저항
+- is kinematic : 외부 물리효과 적용 여부. 옵션을 키면 애니메이션, 스크립트에 의해 움직임
+- collision detection : 연속 충돌 감지 옵션. 너무 빠른경우 다른 물체를 통과할 수 있으나 그 현상 방지
+- constraints : 위치/회전 고정
+- interpolation : 물리 효과 부드럽게. 일반적으로 플레이어 캐릭터에 적용.
+
+* texture
+- 가져다 쓰는 걸로 하자 ㅇㅅㅇ
+
+* 에셋 스토어
+- unity chan은 버그가 있어서 작동이 안됨... ㅠ
+
+* C# 스크립트 개요
+- Awake : 생성자
+- Start : update전에 한번 실행. 원하면 여러번 사용 가능
+- Update : 프레임당 실행 동작
+- LateUpdate : 매 Update 매서드가 끝날 때마다 실행
+- Destroy : 오브젝트 삭제
+
+* Hello, World!
+- 원하는 위치에
+//codeStart
+Debug.log("Hello, World!");
+//codeEnd
+
+* C# 스크립트 이동하기
+- class 내에
+//codeStart
+public float moveSpeed = 5f; // 이를 통해 컴퓨터마다 속도가 다른 현상 해결
+public Transform tr;
+//codeEnd
+- start 내에
+//start
+tr = GetComponent<Transform>();
+//end
+- Update 내에
+// start
+if (input.GetKey(KeyCode.LeftArrow)) {
+tr.Translate(Vector3.left * moveSpeed * Time.deltaTime);
+}
+//end
+
+* Vector3
+- zero : Vector3(0,0,0)
+- right : Vector3(1,0,0)
+- left : Vector3(-1,0,0)
+- up : Vector3(0,1,0)
+- down : Vector3(0,-1,0)
+- forward : Vector3(0,0,1)
+- back : Vector3(0,0,-1)
+- one : Vector3(1,1,1)
+
+* 키 입력
+- GetKey : 누르고 있으면 연속적으로 입력
+- GetKeyDown : 누를 때 한번
+- GetKeyUp : 떨어질 때 한번
+
+* 종속관계
+- 객체가 2명 이상일 때
+- 한 객체를 종속시키고 싶은 객체에 드래그
+- 카메라 종속으로 1인칭 시점을 만들고 싶을 때 응용 가능
+- 물건 줍기같은 형태로도 응용 가능
+
+* 충돌 코드
+- collision
+  : void OnCollisionEnter(Collider col) - 충돌 시작시
+  : void OnCollisionStay(Collider col) - 충돌 중
+  : void OnCollisionExit(Collider col) - 충돌이 끝날 때
+- trigger
+  : void OnTriggerEnterr(Collider col) - 충돌 시작시
+  : void OnTriggerStay(Collider col) - 충돌 중
+  : void OnTriggerExit(Collider col) - 충돌이 끝날 때
+
+* Git 연동하기
+- 내가 만들 폴더로 들어간다 (cf) ls, cd)
+- Git init, Git clone (깃레퍼지토리 주소)
+- 내가 앞으로 수정할 폴더로 들어간다.
+- Git add -A
+- Git commit -m "수정한 내용"
+- Git push origin master
+
+* Git에서 받을 때
+- 처음 받는 경우 : $ git clone 깃레퍼지토리 주소
+- 존재하는 경우 : $ git pull origin master
